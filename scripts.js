@@ -18,3 +18,54 @@ document.addEventListener("click", function (event) {
     }
 
 });
+
+let imagenes = document.querySelectorAll("img");
+
+imagenes.forEach(function (imagen) {
+
+    let imagenOriginal = imagen.getAttribute("src");
+
+    imagen.addEventListener("mouseenter", function () {
+        imagen.setAttribute("src", "assets/abracadabra.gif");
+    });
+
+    imagen.addEventListener("mouseleave", function () {
+        imagen.setAttribute("src", imagenOriginal);
+    });
+
+});
+
+let parrafos = document.querySelectorAll("p");
+
+parrafos.forEach(function (parrafo) {
+
+    let colorOriginal = parrafo.style.color;
+    let fondoOriginal = parrafo.style.backgroundColor;
+
+    parrafo.addEventListener("mouseenter", function () {
+        parrafo.style.color = "white";
+        parrafo.style.backgroundColor = "orange";
+    });
+
+    parrafo.addEventListener("mouseleave", function () {
+        parrafo.style.color = colorOriginal;
+        parrafo.style.backgroundColor = fondoOriginal;
+    });
+
+});
+
+let bloques = document.querySelectorAll("article, section");
+
+bloques.forEach(function (bloque) {
+
+    let fondoOriginal = bloque.style.backgroundColor;
+
+    bloque.addEventListener("mouseenter", function () {
+        bloque.style.backgroundColor = "pink";
+    });
+
+    bloque.addEventListener("mouseleave", function () {
+        bloque.style.backgroundColor = fondoOriginal;
+    });
+
+});
