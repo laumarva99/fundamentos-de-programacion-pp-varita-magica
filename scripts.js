@@ -1,31 +1,60 @@
+
+/* const colors = ['red', 'blue', 'green']
+
+const getRandom = (array) => {
+}
+
+console.log(getRandom(colors)) */
+
+
+const getRandom = (array) => {
+    let numero = Math.floor(Math.random() * array.length);
+    return array[numero];
+};
+
+
+const coloresParrafo = [
+    "#264653", 
+    "#2A9D8F", 
+    "#E9C46A", 
+    "#F4A261", 
+    "#E76F51"
+];
+
+const coloresBloque = [
+    "#CDB4DB", 
+    "#FFC8DD", 
+    "#FFAFCC", 
+    "#BDE0FE", 
+    "#A2D2FF"
+];
+
+
+const gifs = [
+    "assets/magic-1.gif",
+    "assets/magic-2.gif",
+    "assets/magic-3.gif",
+    "assets/magic-4.gif",
+    "assets/magic-5.gif",
+    "assets/magic-6.gif"
+];
+
+
+
+
+
+
 document.addEventListener("click", function (event) {
-
     event.preventDefault();
-
-    let elemento = event.target;
-
-    if (elemento.tagName === "IMG") {
-        elemento.setAttribute("src", "assets/magic-2.gif");
-    }
-
-    if (elemento.tagName === "P") {
-        elemento.style.color = "red";
-        elemento.style.backgroundColor = "green";
-    }
-
-    if (elemento.tagName === "ARTICLE" || elemento.tagName === "SECTION") {
-        elemento.style.backgroundColor = "lightblue";
-    }
-
 });
 
 let imagenes = document.querySelectorAll("img");
 
 imagenes.forEach(function (imagen) {
-
-    let imagenOriginal = imagen.getAttribute("src");
+    let imagenOriginal;
 
     imagen.addEventListener("mouseenter", function () {
+        imagenOriginal = imagen.getAttribute("src");
         imagen.setAttribute("src", "assets/abracadabra.gif");
     });
 
@@ -33,18 +62,31 @@ imagenes.forEach(function (imagen) {
         imagen.setAttribute("src", imagenOriginal);
     });
 
+    imagen.addEventListener("click", function () {
+        let gif = getRandom(gifs);
+        imagen.setAttribute("src", gif);
+        imagenOriginal = gif; 
+    });
 });
+
+
+
+
 
 let parrafos = document.querySelectorAll("p");
 
 parrafos.forEach(function (parrafo) {
-
-    let colorOriginal = parrafo.style.color;
-    let fondoOriginal = parrafo.style.backgroundColor;
+    let colorOriginal;
+    let fondoOriginal;
 
     parrafo.addEventListener("mouseenter", function () {
-        parrafo.style.color = "white";
-        parrafo.style.backgroundColor = "orange";
+        colorOriginal = parrafo.style.color;
+        fondoOriginal = parrafo.style.backgroundColor;
+
+        let texto = getRandom(coloresParrafo);
+        let fondo = getRandom(coloresParrafo.filter((c) => c !== texto));
+        parrafo.style.color = texto;
+        parrafo.style.backgroundColor = fondo;
     });
 
     parrafo.addEventListener("mouseleave", function () {
@@ -52,20 +94,40 @@ parrafos.forEach(function (parrafo) {
         parrafo.style.backgroundColor = fondoOriginal;
     });
 
+    parrafo.addEventListener("click", function () {
+        let texto = getRandom(coloresParrafo);
+        let fondo = getRandom(coloresParrafo.filter((c) => c !== texto));
+        parrafo.style.color = texto;
+        parrafo.style.backgroundColor = fondo;
+
+
+        colorOriginal = texto;
+        fondoOriginal = fondo;
+    });
 });
+
+
+
 
 let bloques = document.querySelectorAll("article, section");
 
 bloques.forEach(function (bloque) {
-
-    let fondoOriginal = bloque.style.backgroundColor;
+    let fondoOriginal;
 
     bloque.addEventListener("mouseenter", function () {
-        bloque.style.backgroundColor = "pink";
+        fondoOriginal = bloque.style.backgroundColor;
+        bloque.style.backgroundColor = getRandom(coloresBloque);
     });
 
     bloque.addEventListener("mouseleave", function () {
         bloque.style.backgroundColor = fondoOriginal;
     });
 
+    bloque.addEventListener("click", function (event) {
+        if (event.target !== bloque) return;
+
+        let fondo = getRandom(coloresBloque);
+        bloque.style.backgroundColor = fondo;
+        fondoOriginal = fondo;
+    });
 });
